@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Wishes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0c4a6e;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            z-index: 1;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .tree {
+            font-size: 8em;
+            animation: twinkle 1.5s infinite alternate;
+        }
+        @keyframes twinkle {
+            from { opacity: 0.7; }
+            to { opacity: 1; }
+        }
+        form {
+            margin-top: 20px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: none;
+        }
+        input {
+            width: 300px;
+            margin-right: 10px;
+        }
+        button {
+            background-color: #e63946;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #c1121f;
+        }
+        #wishes {
+            margin-top: 20px;
+            font-style: italic;
+        }
+        .snowflake {
+            color: #fff;
+            font-size: 1em;
+            position: absolute;
+            top: -20px;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Merry Christmas!</h1>
+        <div class="tree">🎄</div>
+        <form id="wishForm">
+            <input type="text" id="wishInput" placeholder="Enter your Christmas wish" required>
+            <button type="submit">Send Wish</button>
+        </form>
+        <div id="wishes"></div>
+    </div>
+
+    <script>
+        // Create snowflakes
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * window.innerWidth + 'px';
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        }
+
+        // Create snowflakes every 200ms
+        setInterval(createSnowflake, 200);
+
+        // Handle wish form submission
+        document.getElementById('wishForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const wishInput = document.getElementById('wishInput');
+            const wishesDiv = document.getElementById('wishes');
+            if (wishInput.value.trim() !== '') {
+                wishesDiv.innerHTML = `Your wish: "${wishInput.value}" has been sent to Santa!`;
+                wishInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
